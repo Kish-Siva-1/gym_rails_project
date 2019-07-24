@@ -49,6 +49,10 @@ group :development, :test do
   gem "database_cleaner"
   gem "rspec-rails"
   gem "rack_session_access"
+  gem "omniauth-github"
+  gem "devise"
+  gem "pry-rails"
+  gem "dotenv-rails"
 end
 
 group :development do
