@@ -12,14 +12,23 @@
 
 ActiveRecord::Schema.define(version: 2019_07_23_222409) do
 
-  create_table "machine", force: :cascade do |t|
+  create_table "machines", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "routines", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "machine_id"
+    t.string "name"
+    t.integer "repetition"
+    t.integer "sets"
+    t.integer "weights"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["machine_id"], name: "index_routines_on_machine_id"
+    t.index ["user_id"], name: "index_routines_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,15 @@
+
+<%= button_to "Add A Machine", new_user_machine_path(current_user) %>
+
+<br>
+
+<% if current_user.routines.empty? || current_user.routines.first.machines.empty? %>
+
+There are no machines, please add a new machine via the "Add Machine button"
+
+<%else%>
+
+   
+
+<%end%>
+

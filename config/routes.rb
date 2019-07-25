@@ -11,6 +11,14 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :users, only: [:show, :index] do
+    resources :machines
+  end
+
+  resources :machines, only: [:show, :index] do
+    resources :routines
+  end
+
   root 'welcome#home'
 
 end
