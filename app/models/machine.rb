@@ -1,5 +1,7 @@
 class Machine < ApplicationRecord
-    has_many :routines
-    has_many :users, through: :routines
+    has_many :weights
+    has_many :routines, through: :weights
+
+    accepts_nested_attributes_for :weights
 
 end

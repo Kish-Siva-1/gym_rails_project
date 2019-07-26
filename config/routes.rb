@@ -11,12 +11,12 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :users, only: [:show, :index] do
-    resources :machines
+  resources :users do
+    resources :routines
   end
 
-  resources :machines, only: [:show, :index] do
-    resources :routines
+  resources :routines do
+    resources :machines
   end
 
   root 'welcome#home'

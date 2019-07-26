@@ -1,15 +1,23 @@
 
-<%= button_to "Add A Machine", new_user_machine_path(current_user) %>
+<h1> Welcome to your Home Page </h1>
 
 <br>
 
-<% if current_user.routines.empty? || current_user.routines.first.machines.empty? %>
+<%= button_to "Add A Routine", new_user_routine_path(current_user), :method => :get %>
 
-There are no machines, please add a new machine via the "Add Machine button"
+<br>
+
+<% if current_user.routines.empty? %>
+
+There are no routines, please add a new machine via the "Add Routine button".
 
 <%else%>
 
-   
+    <% current_user.routines.each do |x| %>
+    Routine Name: <%=link_to x.name, user_routine_path(current_user, x) %>
+    <br>
+    <br>
+    <% end %>
 
 <%end%>
 

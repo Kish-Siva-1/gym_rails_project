@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable
   
   has_many :routines
-  has_many :machines, through: :routines
 
 
   def self.from_omniauth(auth)

@@ -14,20 +14,17 @@ ActiveRecord::Schema.define(version: 2019_07_23_222409) do
 
   create_table "machines", force: :cascade do |t|
     t.string "name"
+    t.integer "repetitions"
+    t.integer "sets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "routines", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "machine_id"
     t.string "name"
-    t.integer "repetition"
-    t.integer "sets"
-    t.integer "weights"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["machine_id"], name: "index_routines_on_machine_id"
     t.index ["user_id"], name: "index_routines_on_user_id"
   end
 
@@ -44,6 +41,16 @@ ActiveRecord::Schema.define(version: 2019_07_23_222409) do
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "weights", force: :cascade do |t|
+    t.integer "routine_id"
+    t.integer "machine_id"
+    t.integer "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["machine_id"], name: "index_weights_on_machine_id"
+    t.index ["routine_id"], name: "index_weights_on_routine_id"
   end
 
 end

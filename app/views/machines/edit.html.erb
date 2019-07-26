@@ -1,0 +1,19 @@
+<h3>Update Machine</h3>
+ 
+<%= form_for :machine, #, method: :post do |f| %>
+
+<h2>Add a New Workout</h2>
+
+<br>
+  
+  Workout Machine Name: <%= f.text_field :name %><br>
+  Repetitions: <%= f.text_field :repetitions %><br>
+  Sets: <%= f.text_field :sets %><br>
+
+<%= f.fields_for :weights do |weights_form| %>
+    Weights:  <%= weights_form.text_field :weight %>
+<% end %>
+
+<br>  
+<br>
+<%= f.submit "Add Workout" %>
