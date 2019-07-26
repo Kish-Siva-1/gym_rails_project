@@ -2,12 +2,12 @@ class MachinesController < ApplicationController
 
     def new
         @routine = Routine.find_by(params.permit(:routine_id).values)
+        @weight = @routine.weights.build
+        @machine = @weight.build_machine
     end 
 
     def create
-        @routine = Routine.find_by(params.permit(:routine_id).values)
-        @machine = @routine.weights.create(weight_params).create_machine!(machine_params)
-        @weight = @routine.weights.last.machine
+        @machine = Machine.create(machine_params)
         redirect_to user_routine_path(current_user, @routine)
     end
 
@@ -32,11 +32,7 @@ class MachinesController < ApplicationController
     private
 
     def machine_params
-        params.require("machine").permit(:name, :repetitions, :sets)
-    end
-
-    def weight_params
-        params.require("machine").require(:weights).permit(:weight)
+        params.require("machine").permit(:name, :repetitions, :sets, weights_attributes: [:weight, :routine_id])
     end
 
 end
