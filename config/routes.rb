@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     get 'logout', to: 'devise/sessions#destroy'
   end 
 
-  resources :users
-
   resources :users do
     resources :routines
   end

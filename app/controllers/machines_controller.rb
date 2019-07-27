@@ -1,37 +1,41 @@
 class MachinesController < ApplicationController
 
     def new
-        @routine = Routine.find_by(id: params.permit(:routine_id).values[0])
-        @weight = @routine.weights.build
-        @machine = @weight.build_machine
+            @routine = Routine.find_by(id: params.permit(:routine_id).values[0])
+            @weight = @routine.weights.build
+            @machine = @weight.build_machine
     end 
 
     def create
-        @machine = Machine.create(machine_params)
-        @routine = @machine.weights.last.routine
-        redirect_to user_routine_path(current_user, @routine)
+            @machine = Machine.create(machine_params)
+            @routine = @machine.weights.last.routine
+            redirect_to user_routine_path(current_user, @routine)
     end
 
     def show
-        @machine = Machine.find(params[:id])
+            @machine = Machine.find(params[:id])
     end
 
     def edit
-        @machine = Machine.find(params[:id])
-        @routine = @machine.weights.last.routine
+            @machine = Machine.find(params[:id])
+            @routine = @machine.weights.last.routine
     end
 
     def update
-        @machine = Machine.find(params[:id])
-        @machine.update(machine_params)
-        @routine = @machine.weights.last.routine
-        redirect_to user_routine_path(current_user, @routine)
+            @machine = Machine.find(params[:id])
+            @machine.update(machine_params)
+            @routine = @machine.weights.last.routine
+            redirect_to user_routine_path(current_user, @routine)
     end
 
     def destroy
-        @routine = Machine.find(params[:id]).weights.last.routine
-        Machine.find(params[:id]).destroy
-        redirect_to user_routine_path(current_user, @routine)
+        if signed_in?
+            @routine = Machine.find(params[:id]).weights.last.routine
+            Machine.find(params[:id]).destroy
+            redirect_to user_routine_path(current_user, @routine)
+        else 
+            redirect_to '/login'
+        end  
     end
 
     private

@@ -1,35 +1,43 @@
 class RoutinesController < ApplicationController
 
     def new
-        @routine = Routine.new
+            @routine = Routine.new
     end 
 
     def create
-        @routine = current_user.routines.create(routine_params)
-        redirect_to user_path(current_user)
+            @routine = current_user.routines.create(routine_params)
+            redirect_to user_path(current_user)
     end
 
     def index
-        @routines = current_user.routines
+            @routines = current_user.routines
     end
 
     def show
-        @routine = Routine.find_by(params.permit(:id))
+        if signed_in?
+            @routine = Routine.find_by(params.permit(:id))
+        else 
+            redirect_to '/login'
+        end
     end
 
     def edit
-        @routine = Routine.find_by(params.permit(:id))
+            @routine = Routine.find_by(params.permit(:id))
     end
 
     def update
-        @routine = Routine.find_by(params.permit(:id))
-        @routine.update(params.require(:routine).permit(:name))
-        redirect_to user_routine_path(current_user, @routine)
+            @routine = Routine.find_by(params.permit(:id))
+            @routine.update(params.require(:routine).permit(:name))
+            redirect_to user_routine_path(current_user, @routine)
     end
 
     def destroy
-        @routine = Routine.find_by(params.permit(:id)).destroy
-        redirect_to user_path(current_user)
+        if signed_in?
+            @routine = Routine.find_by(params.permit(:id)).destroy
+            redirect_to user_path(current_user)
+        else 
+            redirect_to '/login'
+        end
     end
 
     private 

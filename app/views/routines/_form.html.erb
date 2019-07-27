@@ -4,7 +4,9 @@ Add a New Routine
 
 <br>
 <br>
-  Name: <%= f.text_field :name %><br>
+<div class="text">
+  Name: <div class="field_with_errors"><%= f.text_field :name %></div><br>
+</div>
 <br>  
 <%= f.submit %>
 <% end %>
