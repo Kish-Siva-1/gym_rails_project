@@ -4,12 +4,12 @@
 
 <br>
   
-  Workout Machine Name: <div class="fields_with_errors"><%= f.text_field :name %></div><br>
-  Repetitions: <div class="fields_with_errors"><%= f.text_field :repetitions %><div><br>
-  Sets: <div class="fields_with_errors"><%= f.text_field :sets %></div><br>
+  Workout Machine Name: <%= f.text_field :name %><br>
+  Repetitions: <%= f.text_field :repetitions %><br>
+  Sets: <%= f.text_field :sets %><br>
 
 <%= f.fields_for :weights, @weight do |weights_form| %>
-    Weights:  <div class="fields_with_errors"><%= weights_form.text_field :weight %></div>
+    Weights:  <%= weights_form.text_field :weight %>
     <%= weights_form.hidden_field :routine_id, :value => @routine.id %>
     <%= weights_form.hidden_field :machine_id, :value => @machine.id %>
 <% end %>

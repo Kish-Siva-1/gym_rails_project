@@ -9,6 +9,7 @@ class Machine < ApplicationRecord
     def weights_attributes=(weight_attributes)
         weight_attributes.values.each do |weight_attribute|
             if weight_attribute[:machine_id].empty?
+                
                 weight = Weight.create(weight_attribute)
                 self.weights << weight
             else 
