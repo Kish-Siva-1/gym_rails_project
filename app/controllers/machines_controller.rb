@@ -1,31 +1,51 @@
 class MachinesController < ApplicationController
 
     def new
-            @routine = Routine.find_by(id: params.permit(:routine_id).values[0])
+        if signed_in? 
+           @routine = Routine.find_by(id: params.permit(:routine_id).values[0])
             @weight = @routine.weights.build
             @machine = @weight.build_machine
+        else
+            redirect_to '/login'
+        end   
     end 
 
     def create
-            @machine = Machine.create(machine_params)
+        if signed_in? 
+           @machine = Machine.create(machine_params)
             @routine = @machine.weights.last.routine
             redirect_to user_routine_path(current_user, @routine)
+        else
+            redirect_to '/login'
+        end 
     end
 
     def show
-            @machine = Machine.find(params[:id])
+        if signed_in? 
+           @machine = Machine.find(params[:id])
+        else
+            redirect_to '/login'
+        end
     end
 
     def edit
+        if signed_in? 
             @machine = Machine.find(params[:id])
             @routine = @machine.weights.last.routine
+        else
+            redirect_to '/login'
+        end
     end
 
     def update
+        if signed_in? 
             @machine = Machine.find(params[:id])
             @machine.update(machine_params)
             @routine = @machine.weights.last.routine
             redirect_to user_routine_path(current_user, @routine)
+        else
+            redirect_to '/login'
+        end
     end
 
     def destroy
