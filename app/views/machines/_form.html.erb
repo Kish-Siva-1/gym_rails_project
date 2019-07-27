@@ -11,7 +11,7 @@
 <%= f.fields_for :weights, @weight do |weights_form| %>
     Weights:  <%= weights_form.text_field :weight %>
     <%= weights_form.hidden_field :routine_id, :value => @routine.id %>
-
+    <%= weights_form.hidden_field :machine_id, :value => @machine.id %>
 <% end %>
 
 <br>  
