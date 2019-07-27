@@ -2,6 +2,10 @@ class Machine < ApplicationRecord
     has_many :weights
     has_many :routines, through: :weights
 
+    validates :name, presence: true, :uniqueness => true
+    validates :repetitions, presence: true
+    validates :sets, presence: true
+
     def weights_attributes=(weight_attributes)
         weight_attributes.values.each do |weight_attribute|
             if weight_attribute[:machine_id].empty?
