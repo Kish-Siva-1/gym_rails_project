@@ -1,3 +1,17 @@
+<% if @routine.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@routine.errors.count, "error") %>
+      this action could not be completed due to:
+    </h2>
+    <ul>
+    <% @routine.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @routine do |f| %>
 
 Add a New Routine
@@ -5,7 +19,7 @@ Add a New Routine
 <br>
 <br>
 <div class="text">
-  Name: <div class="field_with_errors"><%= f.text_field :name %></div><br>
+  Name: <%= f.text_field :name %><br>
 </div>
 <br>  
 <%= f.submit %>

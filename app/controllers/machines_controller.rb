@@ -12,9 +12,14 @@ class MachinesController < ApplicationController
 
     def create
         if signed_in? 
-           @machine = Machine.create(machine_params)
-            @routine = @machine.weights.last.routine
-            redirect_to user_routine_path(current_user, @routine)
+            @machine = Machine.create(machine_params)
+            if @machine.valid? 
+                @routine = @machine.weights.last.routine
+                redirect_to user_routine_path(current_user, @routine)    
+            else
+                @routine = Routine.find_by(id: params.permit(:routine_id).values[0]) 
+                render 'new'
+            end
         else
             redirect_to '/login'
         end 
@@ -41,8 +46,13 @@ class MachinesController < ApplicationController
         if signed_in? 
             @machine = Machine.find(params[:id])
             @machine.update(machine_params)
-            @routine = @machine.weights.last.routine
-            redirect_to user_routine_path(current_user, @routine)
+            if @machine.valid? 
+                @routine = @machine.weights.last.routine
+                redirect_to user_routine_path(current_user, @routine)    
+            else
+                @routine = Routine.find_by(id: params.permit(:routine_id).values[0]) 
+                render 'new'
+            end
         else
             redirect_to '/login'
         end

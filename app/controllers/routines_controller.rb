@@ -11,7 +11,11 @@ class RoutinesController < ApplicationController
     def create
         if signed_in? 
             @routine = current_user.routines.create(routine_params)
-            redirect_to user_path(current_user)
+            if @routine.valid?
+                redirect_to user_path(current_user)    
+            else
+                render 'new'
+            end
         else
             redirect_to '/login'
         end 
@@ -36,22 +40,24 @@ class RoutinesController < ApplicationController
 
     def edit
         if signed_in? 
-           @routine = Routine.find_by(params.permit(:id))
+           @routine = Routine.find_by(params.permit(:id))  
         else
             redirect_to '/login'
         end
-            
     end
 
     def update
         if signed_in? 
             @routine = Routine.find_by(params.permit(:id))
             @routine.update(params.require(:routine).permit(:name))
-            redirect_to user_routine_path(current_user, @routine)
+            if @routine.valid?
+                redirect_to user_routine_path(current_user, @routine)    
+            else
+                render 'edit'
+            end
         else
             redirect_to '/login'
         end
-            
     end
 
     def destroy

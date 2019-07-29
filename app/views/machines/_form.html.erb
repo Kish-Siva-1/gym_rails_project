@@ -1,7 +1,23 @@
+
+<% if @machine.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@machine.errors.count, "error") %>
+      this action could not be completed due to:
+    </h2>
+ 
+    <ul>
+    <% @machine.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for [@routine, @machine] do |f| %>
 
 <h2>Add a New Workout</h2>
-
+  
 <br>
 
   Workout Machine Name: <%= f.text_field :name %><br>
