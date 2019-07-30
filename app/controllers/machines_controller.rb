@@ -14,15 +14,18 @@ class MachinesController < ApplicationController
     end 
 
     def create 
-            @machine = Machine.create(machine_params)
-            authorize @machine
-            if @machine.valid? 
+
+            @machine = Machine.create(machine_params) 
+        
+            if @machine.valid?  
+                authorize @machine
                 @routine = @machine.weights.last.routine
                 redirect_to user_routine_path(current_user, @routine)    
             else
                 @routine = Routine.find_by(id: params.permit(:routine_id).values[0]) 
                 render 'new'
             end
+            
     end
     
     def edit

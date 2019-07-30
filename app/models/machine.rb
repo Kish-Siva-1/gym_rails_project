@@ -5,6 +5,8 @@ class Machine < ApplicationRecord
     validates :name, presence: true
     validates :repetitions, presence: true
     validates :sets, presence: true
+    
+    scope :dup_check, -> (name) { where("name = ?", name).size }
 
     def weights_attributes=(weight_attributes)
         weight_attributes.values.each do |weight_attribute|
