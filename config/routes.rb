@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :routines do
-    resources :machines
+    resources :machines, :except => [:show]
   end
 
   root 'welcome#home'

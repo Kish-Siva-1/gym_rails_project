@@ -53,6 +53,7 @@ group :development, :test do
   gem "devise"
   gem "pry-rails"
   gem "dotenv-rails"
+  gem "pundit"
 end
 
 group :development do

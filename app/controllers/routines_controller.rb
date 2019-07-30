@@ -1,5 +1,6 @@
 class RoutinesController < ApplicationController
     before_action :require_login
+    before_action :authenticate_user!
 
     def new
             @routine = Routine.new
@@ -20,6 +21,11 @@ class RoutinesController < ApplicationController
 
     def show
             @routine = Routine.find_by(params.permit(:id))
+            if @routine.nil?
+                redirect_to user_path(current_user)
+            else 
+                authorize @routine
+            end
     end
 
     def edit
@@ -28,6 +34,11 @@ class RoutinesController < ApplicationController
 
     def update
             @routine = Routine.find_by(params.permit(:id))
+            if @routine.nil?
+                redirect_to user_path(current_user)
+            else 
+                authorize @routine
+            end
             @routine.update(params.require(:routine).permit(:name))
             if @routine.valid?
                 redirect_to user_routine_path(current_user, @routine)    
@@ -37,7 +48,11 @@ class RoutinesController < ApplicationController
     end
 
     def destroy
-            @routine = Routine.find_by(params.permit(:id)).destroy
+            @routine = Routine.find_by(params.permit(:id))
+            authorize @routine
+            if !@routine.nil? 
+                @routine.destroy                
+            end
             redirect_to user_path(current_user)
     end
 
