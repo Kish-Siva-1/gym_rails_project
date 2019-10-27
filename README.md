@@ -1,6 +1,6 @@
 # Gym App
 
-The Gym App is designed to allow users to track information about the their gym routines. This includes the weight and the number of repetitions that they want to lift for a specific piece of equipment. The user is also able to perform CRUD actions such as create, read, update and destroy on the routines and associated workouts.
+The Gym App is designed to allow users to track information about their gym routines. This includes the weight and the number of repetitions that they want to lift for a specific piece of equipment. The user is also able to perform CRUD actions such as create, read, update and destroy on the routines and associated workouts.
 
 ## Installation
 
